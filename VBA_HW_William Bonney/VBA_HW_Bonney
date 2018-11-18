@@ -1,0 +1,33 @@
+Sub TickerVolume()
+Dim WS As Worksheet
+    For Each WS In ActiveWorkbook.Worksheets
+    WS.Activate
+    
+Dim I As Long
+Dim Volume As Double
+Dim Column As Double
+Dim Ticker As String
+Dim Row As Double
+Volume = 0
+Row = 2
+Column = 1
+LastRow = WS.Cells(Rows.Count, 1).End(xlUp).Row
+    For I = 2 To LastRow
+        If Cells(I + 1, Column) <> Cells(I, Column) Then
+                Ticker = Cells(I, Column)
+                Cells(Row, Column + 8) = Ticker
+                
+                Volume = Volume + Cells(I, Column + 6)
+                Cells(Row, Column + 9) = Volume
+                 
+                Row = Row + 1
+                
+                Volume = 0
+          Else
+             Volume = Volume + Cells(I, Column + 6)
+         
+        End If
+        Next I
+    Next WS
+End Sub
+
